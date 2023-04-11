@@ -54,6 +54,7 @@ class CalendarStrip extends Component {
     dayComponent: PropTypes.any,
     leftSelector: PropTypes.any,
     rightSelector: PropTypes.any,
+    showIconNavigation: PropTypes.bool,
     iconLeft: PropTypes.any,
     iconRight: PropTypes.any,
     iconStyle: PropTypes.any,
@@ -103,6 +104,7 @@ class CalendarStrip extends Component {
     showMonth: true,
     showDate: true,
     updateWeek: true,
+    showIconNavigation: true,
     iconLeft: require("./img/left-arrow-black.png"),
     iconRight: require("./img/right-arrow-black.png"),
     calendarHeaderFormat: "MMMM YYYY",
@@ -597,6 +599,7 @@ class CalendarStrip extends Component {
               iconInstanceStyle={this.props.iconLeftStyle}
               iconStyle={this.props.iconStyle}
               imageSource={this.props.iconLeft}
+              showIconNavigation={this.props.showIconNavigation}
               onPress={this.getPreviousWeek}
               weekStartDate={this.state.weekStartDate}
               weekEndDate={this.state.weekEndDate}
@@ -618,6 +621,7 @@ class CalendarStrip extends Component {
               iconInstanceStyle={this.props.iconRightStyle}
               iconStyle={this.props.iconStyle}
               imageSource={this.props.iconRight}
+              showIconNavigation={this.props.showIconNavigation}
               onPress={this.getNextWeek}
               weekStartDate={this.state.weekStartDate}
               weekEndDate={this.state.weekEndDate}

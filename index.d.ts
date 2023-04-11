@@ -105,6 +105,7 @@ interface CalendarStripProps {
   iconLeftStyle?: any;
   iconRightStyle?: any;
   iconContainer?: any;
+  showIconNavigation?: boolean;
 
   maxDayComponentSize?: number;
   minDayComponentSize?: number;

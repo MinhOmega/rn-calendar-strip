@@ -1,6 +1,6 @@
 /**
  * Sample React Native Calendar Strip
- * https://github.com/BugiDev/react-native-calendar-strip
+ * https://github.com/MinhOmega/rn-calendar-strip
  * @flow
  */
 

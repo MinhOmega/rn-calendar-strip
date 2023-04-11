@@ -10,24 +10,15 @@ class WeekSelector extends Component {
   static propTypes = {
     controlDate: PropTypes.any,
     iconComponent: PropTypes.any,
-    iconContainerStyle: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.number
-    ]),
-    iconInstanceStyle: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.number
-    ]),
-    iconStyle: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.number,
-      PropTypes.array
-    ]),
+    iconContainerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+    iconInstanceStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
+    iconStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    showIconNavigation: PropTypes.bool,
     imageSource: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.number]),
     size: PropTypes.number,
     onPress: PropTypes.func,
     weekStartDate: PropTypes.object,
-    weekEndDate: PropTypes.object
+    weekEndDate: PropTypes.object,
   };
 
   shouldComponentUpdate(nextProps) {
@@ -39,19 +30,13 @@ class WeekSelector extends Component {
     delete _props.iconComponent;
 
     return (
-      JSON.stringify(_props) !== JSON.stringify(_nextProps) ||
-      this.props.iconComponent !== nextProps.iconComponent
+      JSON.stringify(_props) !== JSON.stringify(_nextProps) || this.props.iconComponent !== nextProps.iconComponent
     );
   }
 
   isEnabled(controlDate, weekStartDate, weekEndDate) {
     if (controlDate) {
-      return !moment(controlDate).isBetween(
-        weekStartDate,
-        weekEndDate,
-        "day",
-        "[]"
-      );
+      return !moment(controlDate).isBetween(weekStartDate, weekEndDate, "day", "[]");
     }
     return true;
   }
@@ -63,11 +48,12 @@ class WeekSelector extends Component {
       iconComponent,
       iconInstanceStyle,
       iconStyle,
+      showIconNavigation,
       imageSource,
       onPress,
       weekEndDate,
       weekStartDate,
-      size
+      size,
     } = this.props;
 
     const enabled = this.isEnabled(controlDate, weekStartDate, weekEndDate);
@@ -76,21 +62,23 @@ class WeekSelector extends Component {
     let component;
     if (React.isValidElement(iconComponent)) {
       component = React.cloneElement(iconComponent, {
-        style: [iconComponent.props.style, { opacity: opacity.opacity }]
+        style: [iconComponent.props.style, { opacity: opacity.opacity }],
       });
     } else if (Array.isArray(iconComponent)) {
       component = iconComponent;
     } else {
-      let imageSize = { width: size, height: size };
-      component = <></>
+      if (showIconNavigation) {
+        let imageSize = { width: size, height: size };
+        component = (
+          <Image style={[styles.icon, imageSize, iconStyle, iconInstanceStyle, opacity]} source={imageSource} />
+        );
+      } else {
+        component = <></>;
+      }
     }
 
     return (
-      <TouchableOpacity
-        style={[styles.iconContainer, iconContainerStyle]}
-        onPress={onPress}
-        disabled={!enabled}
-      >
+      <TouchableOpacity style={[styles.iconContainer, iconContainerStyle]} onPress={onPress} disabled={!enabled}>
         {component}
       </TouchableOpacity>
     );
